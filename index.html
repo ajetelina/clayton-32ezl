@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clayton 32EZL32603CH26 – Model Showcase</title>
-  <meta name="description" content="Clayton model 32EZL32603CH26: walkthrough video, exterior, every room, floor plan and 3D tour." />
+  <title>Clayton Oceanside 3 – Model Showcase</title>
+  <meta name="description" content="The Clayton Oceanside 3: walkthrough video, exterior, every room, floor plan and 3D tour." />
   <meta name="robots" content="noindex" />
   <link rel="icon" type="image/png" href="img/favicon.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Clayton 32EZL32603CH26 – Model Showcase" />
+  <meta property="og:title" content="Clayton Oceanside 3 – Model Showcase" />
   <meta property="og:url" content="https://ajetelina.github.io/clayton-32ezl/" />
   <meta property="og:image" content="https://ajetelina.github.io/clayton-32ezl/img/full/02.jpg" />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -67,11 +67,10 @@
     .fact span { font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #c7d6e6; }
     @media (max-width: 600px) { .fact { padding: 18px 12px; } .fact b { font-size: 28px; } }
 
-    .ext-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 24px; }
-    .ext-grid figure { position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--wash); cursor: zoom-in; }
-    /* exterior: the twilight front and side */
-    .ext-grid img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    @media (max-width: 760px) { .ext-grid { grid-template-columns: 1fr; } }
+    /* exterior: the twilight front on its own, nearly the page's width, white space around it (Aaron 11-04) */
+    .ext-wide { width: min(1680px, calc(100% - 2 * var(--gutter))); margin: 0 auto; }
+    .ext-wide figure { aspect-ratio: 3 / 2; overflow: hidden; background: var(--wash); cursor: zoom-in; }
+    .ext-wide img { width: 100%; height: 100%; object-fit: cover; }
 
     /* rooms: one mosaic per room group, tabs on top */
     .rooms-bg { background: var(--wash); }
@@ -138,13 +137,13 @@
 
   <header class="hero" id="top">
     <div class="hero-photo">
-      <video src="video/32ezl-walkthrough.mp4" poster="video/poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Walkthrough video of model 32EZL32603CH26"></video>
+      <video src="video/32ezl-walkthrough.mp4" poster="video/poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Walkthrough video of the Oceanside 3"></video>
       <span class="note">Video generated from virtually staged and enhanced photos.</span>
     </div>
     <div class="wrap hero-copy">
       <div>
         <p class="kicker">Clayton Homes &middot; Model showcase</p>
-        <h1>32EZL32603CH26</h1>
+        <h1>Oceanside 3</h1>
         <p>Every room of the model, photographed, staged and ready for your lot and your listings.</p>
       </div>
       <div class="hero-ctas">
@@ -163,11 +162,8 @@
   </section>
 
   <section id="exterior">
-    <div class="wrap">
-      <p class="kicker">Exterior</p>
-      <h2 class="big-h">At twilight.</h2>
-      <p class="lede">The front and side elevations, set on a finished lawn with landscaped beds.</p>
-      <div class="ext-grid" id="ext"></div>
+    <div class="ext-wide">
+      <div id="ext"></div>
       <p class="note" id="ext-note" style="margin-top:10px"></p>
     </div>
   </section>
@@ -253,13 +249,11 @@
       if (e.key === 'ArrowRight') lbStep(1);
     });
 
-    // Exterior: the twilight front and side.
-    const ext = $('#ext');
-    ext.innerHTML = P.exteriors.map((x, i) => `<figure data-i="${i}">
-        <img src="img/full/${x.twilight}.jpg" alt="Exterior at twilight" loading="lazy" /></figure>`).join('');
-    $('#ext-note').textContent = P.exteriors[0].note_twilight;
-    ext.querySelectorAll('figure').forEach(f => f.onclick = () => lbOpen(P.exteriors.map(x => ({
-      src: `img/full/${x.twilight}.jpg`, room: 'Exterior' })), +f.dataset.i));
+    // Exterior: the twilight front alone.
+    const ext = $('#ext'), front = P.exteriors[0];
+    ext.innerHTML = `<figure><img src="img/full/${front.twilight}.jpg" alt="The Oceanside 3 at twilight, front" loading="lazy" /></figure>`;
+    $('#ext-note').textContent = front.note_twilight;
+    ext.querySelector('figure').onclick = () => lbOpen([{ src: `img/full/${front.twilight}.jpg`, room: 'Exterior' }], 0);
 
     // Rooms: a tab per group; the first photo of each group is the big tile.
     const tabs = $('#tabs'), gallery = $('#gallery');
@@ -278,7 +272,7 @@
     showGroup(0);
 
     // Tour and video: swap the placeholder for the real frame once a link is set.
-    if (MATTERPORT) $('#tour-frame').innerHTML = `<iframe src="${MATTERPORT}" title="Matterport 3D tour of model 32EZL32603CH26" allow="autoplay; fullscreen; web-share; xr-spatial-tracking;" allowfullscreen></iframe>`;
+    if (MATTERPORT) $('#tour-frame').innerHTML = `<iframe src="${MATTERPORT}" title="Matterport 3D tour of the Oceanside 3" allow="autoplay; fullscreen; web-share; xr-spatial-tracking;" allowfullscreen></iframe>`;
   </script>
 </body>
 </html>
