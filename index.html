@@ -67,10 +67,11 @@
     .fact span { font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #c7d6e6; }
     @media (max-width: 600px) { .fact { padding: 18px 12px; } .fact b { font-size: 28px; } }
 
-    /* exterior: the twilight front on its own, nearly the page's width, white space around it (Aaron 11-04) */
-    .ext-wide { width: min(1680px, calc(100% - 2 * var(--gutter))); margin: 0 auto; }
-    .ext-wide figure { aspect-ratio: 3 / 2; overflow: hidden; background: var(--wash); cursor: zoom-in; }
-    .ext-wide img { width: 100%; height: 100%; object-fit: cover; }
+    /* exterior: the twilight front as a full-width strip under the gallery, Aaron's crop (11-04): the whole width,
+       rows 331-1267 of 1600, which is the photo's vertical centre at 2400:936 */
+    #exterior { padding: 0; }
+    .ext-strip { margin: 0; aspect-ratio: 2400 / 936; overflow: hidden; background: var(--wash); cursor: zoom-in; }
+    .ext-strip img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
 
     /* rooms: one mosaic per room group, tabs on top */
     .rooms-bg { background: var(--wash); }
@@ -127,8 +128,8 @@
     <div class="wrap nav-inner">
       <a href="#top"><img src="img/clayton-homes.png" alt="Clayton Homes" /></a>
       <ul>
-        <li><a href="#exterior">Exterior</a></li>
         <li><a href="#rooms">Rooms</a></li>
+        <li><a href="#exterior">Exterior</a></li>
         <li><a href="#floor-plan">Floor plan</a></li>
         <li><a href="#tour">3D tour</a></li>
       </ul>
@@ -161,13 +162,6 @@
     </div>
   </section>
 
-  <section id="exterior">
-    <div class="ext-wide">
-      <div id="ext"></div>
-      <p class="note" id="ext-note" style="margin-top:10px"></p>
-    </div>
-  </section>
-
   <section id="rooms" class="rooms-bg">
     <div class="wrap">
       <p class="kicker">Room by room</p>
@@ -177,6 +171,11 @@
       <div class="tabs" role="tablist" id="tabs"></div>
       <div class="gallery" id="gallery"></div>
     </div>
+  </section>
+
+  <section id="exterior" class="rooms-bg">
+    <div id="ext"></div>
+    <div class="wrap"><p class="note" id="ext-note" style="margin-top:10px"></p></div>
   </section>
 
   <section id="floor-plan" class="rooms-bg">
@@ -249,9 +248,9 @@
       if (e.key === 'ArrowRight') lbStep(1);
     });
 
-    // Exterior: the twilight front alone.
+    // Exterior: the twilight front alone, a strip under the gallery.
     const ext = $('#ext'), front = P.exteriors[0];
-    ext.innerHTML = `<figure><img src="img/full/${front.twilight}.jpg" alt="The Oceanside 3 at twilight, front" loading="lazy" /></figure>`;
+    ext.innerHTML = `<figure class="ext-strip"><img src="img/full/${front.twilight}.jpg" alt="The Oceanside 3 at twilight, front" loading="lazy" /></figure>`;
     $('#ext-note').textContent = front.note_twilight;
     ext.querySelector('figure').onclick = () => lbOpen([{ src: `img/full/${front.twilight}.jpg`, room: 'Exterior' }], 0);
 
