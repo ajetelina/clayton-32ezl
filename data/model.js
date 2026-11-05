@@ -240,12 +240,18 @@ window.MODEL = {
   ]
  },
  "url": "https://ajetelina.github.io/clayton-32ezl/",
- "downloads": [],
+ "downloads": [
+  [
+   "Video",
+   "16:9, 30 s, 12 MB",
+   "video/oceanside-3-header.mp4"
+  ]
+ ],
  "og_image": "img/og.jpg",
  "cards": [
   [
    "Photo card",
-   "Twilight front, name, specs, QR",
+   "Daylight front, specs, description, QR",
    "card.html?style=photo",
    "downloads/oceanside-3-card-photo.pdf",
    "img/card-photo.jpg"
