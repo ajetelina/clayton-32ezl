@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lot Card</title>
+  <meta name="robots" content="noindex" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* The model's lot cards (2026-11-04): one letter-size landscape page a retailer prints and puts on the model or
+       in the sales office; buyers scan the QR to open the model page. Three layouts from one data file, picked by
+       ?style=: photo (the twilight front, Aaron's favourite), collage (the builder's logo, the exterior and two rooms),
+       plain (the builder's logo, the name, the number, the specs). The build prints each to a PDF for the page. */
+    @page { size: letter landscape; margin: 0; }
+    :root { --ink: #14202e; --body: #445163; --mute: #6f7b8b; --line: #dde3ea; --navy: #2f4a68; --navy-ink: #0f1c2b; --steel: #9fc3ea; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Barlow", Arial, sans-serif; background: #d9dee4; color: var(--body); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .bar { display: flex; justify-content: center; gap: 10px; padding: 16px; }
+    .bar a, .bar button { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; padding: 10px 20px; background: #fff; color: var(--navy); border: 1.5px solid var(--navy); cursor: pointer; text-decoration: none; }
+    .bar .on, .bar button { background: var(--navy); color: #fff; }
+    .card { width: 11in; height: 8.5in; margin: 0 auto 30px; background: #fff; box-shadow: 0 10px 40px rgba(0,0,0,.18); overflow: hidden; position: relative; }
+    .card img.ph { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .kicker { font-family: "Barlow Condensed", sans-serif; font-weight: 600; font-size: 15pt; letter-spacing: .22em; text-transform: uppercase; color: var(--navy); }
+    .kicker span { display: inline-block; width: 1px; height: .9em; background: #b9c6d4; margin: 0 12px; vertical-align: -.1em; }
+    h1 { font-family: "Barlow Condensed", sans-serif; font-weight: 800; text-transform: uppercase; line-height: .95; color: var(--ink); }
+    .stats { display: flex; gap: .35in; }
+    .stats b { display: block; font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 34pt; line-height: 1; color: var(--ink); }
+    .stats span { font-size: 10pt; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--mute); }
+    .spec { font-family: "Barlow Condensed", sans-serif; font-weight: 600; font-size: 13pt; letter-spacing: .14em; text-transform: uppercase; color: var(--navy); }
+    .credit { display: flex; align-items: center; gap: 10px; font-size: 10pt; color: var(--mute); }
+    .credit img { height: 22px; width: auto; }
+    .qr svg { display: block; }
+    .qr b { display: block; margin-top: 10px; font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 14pt; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
+    .qr span { font-size: 10pt; color: var(--mute); }
+
+    /* photo: the card Aaron liked, unchanged */
+    .photo { display: grid; grid-template-rows: 4.6in 1fr; }
+    .photo .top { position: relative; overflow: hidden; }
+    .photo .band { position: absolute; left: 0; right: 0; bottom: 0; background: linear-gradient(0deg, rgba(15,28,43,.92), rgba(15,28,43,0)); padding: 60px .5in .3in; color: #fff; }
+    .photo .kicker { color: var(--steel); }
+    .photo .kicker span { background: rgba(159,195,234,.6); }
+    .photo h1 { color: #fff; font-size: 54pt; margin-top: 6px; }
+    .photo .lower { display: grid; grid-template-columns: 1fr 2.6in; gap: .4in; padding: .35in .5in .3in; align-items: center; }
+    .photo .spec { margin-top: 16px; }
+    .photo .credit { margin-top: 22px; }
+    .photo .qr { text-align: center; }
+    .photo .qr svg { width: 1.9in; height: 1.9in; margin: 0 auto; }
+
+    /* collage: photos at the left, the builder's logo, name, specs and QR at the right */
+    .collage { display: grid; grid-template-columns: 6.7in 1fr; }
+    .collage .pics { display: grid; grid-template-rows: 5.1in 1fr; gap: .08in; }
+    .collage .pics .two { display: grid; grid-template-columns: 1fr 1fr; gap: .08in; min-height: 0; }
+    .collage .pics > *, .collage .pics .two > * { overflow: hidden; min-height: 0; }
+    .collage .side { padding: .5in .45in .4in; display: flex; flex-direction: column; }
+    .collage .logo { height: .6in; width: auto; align-self: flex-start; margin-bottom: .32in; }
+    .collage .kicker { font-size: 12pt; }
+    .collage h1 { font-size: 40pt; margin-top: 6px; }
+    .collage .spec { margin-top: 14px; font-size: 12pt; line-height: 1.5; }
+    .collage .qr { margin-top: auto; display: flex; gap: .2in; align-items: center; }
+    .collage .qr svg { width: 1.45in; height: 1.45in; flex: 0 0 auto; }
+    .collage .qr b { margin-top: 0; }
+    .collage .credit { margin-top: .25in; }
+
+    /* plain: no photos at all */
+    .plain { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: .5in; }
+    .plain .logo { height: .85in; width: auto; margin-bottom: .35in; }
+    .plain h1 { font-size: 66pt; }
+    .plain .kicker { margin-top: 10px; }
+    .plain .rule { width: 1.2in; height: 4px; background: #0071c8; margin: .28in auto; }
+    .plain .stats { justify-content: center; gap: .45in; }
+    .plain .spec { margin-top: 12px; }
+    .plain .qr { margin-top: .32in; display: flex; gap: .25in; align-items: center; text-align: left; }
+    .plain .qr svg { width: 1.55in; height: 1.55in; }
+    .plain .credit { position: absolute; bottom: .3in; left: 0; right: 0; justify-content: center; }
+
+    @media print { body { background: #fff; } .bar { display: none; } .card { margin: 0; box-shadow: none; } }
+    @media screen and (max-width: 1100px) { .card { zoom: .5; } }
+  </style>
+</head>
+<body>
+  <div class="bar" id="bar"></div>
+  <div class="card" id="card"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+  <script src="data/model.js"></script>
+  <script>
+    const M = window.MODEL, $ = s => document.querySelector(s), title = M.name || M.number;
+    const style = new URLSearchParams(location.search).get('style') || 'photo';
+    const full = id => `img/full/${id}.jpg`;
+    document.title = `Lot card – ${M.builder.name} ${title}`;
+    $('#bar').innerHTML = ['photo', 'collage', 'plain'].map(s => `<a href="?style=${s}" class="${s === style ? 'on' : ''}">${s}</a>`).join('')
+      + '<button type="button" onclick="window.print()">Print</button>';
+
+    const kicker = M.name ? `${M.builder.name}<span></span>${M.number}` : M.builder.name;
+    const stats = M.stats.slice(0, 3).map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join('');
+    const [size, section, year] = M.stats.slice(3).map(s => s[0]);
+    const spec = [size, `${section} section`, `${year} model`, M.plant + ' plant'];
+    const qr = qrcode(0, 'M'); qr.addData(M.url); qr.make();
+    const qrSvg = qr.createSvgTag({ cellSize: 6, margin: 0, scalable: true });
+    const credit = `<p class="credit"><img src="img/logo.png" alt="WTXmedia" />Photography, 3D tour and video by WTXmedia</p>`;
+    const scan = `<div><b>Scan for the full tour</b><span>Photos, video and the 3D walkthrough</span></div>`;
+    const card = $('#card');
+    card.classList.add(style);
+
+    if (style === 'collage') {
+      // the exterior and two rooms: the first photo of the first two room groups (living, kitchen)
+      const [a, b] = [M.groups[0].photos[0].id, M.groups[1].photos[0].id];
+      card.innerHTML = `<div class="pics"><div><img class="ph" src="${full(M.exterior.twilight)}" alt="" /></div>
+          <div class="two"><div><img class="ph" src="${full(a)}" alt="" /></div><div><img class="ph" src="${full(b)}" alt="" /></div></div></div>
+        <div class="side"><img class="logo" src="${M.builder.logo_color}" alt="${M.builder.name}" />
+          <p class="kicker">${M.number}</p><h1>${title}</h1>
+          <p class="spec">${M.stats.slice(0, 3).map(([v, k]) => `${v} ${k}`).join(' · ')}<br>${spec.join(' · ')}</p>
+          <div class="qr">${qrSvg}${scan}</div>${credit}</div>`;
+    } else if (style === 'plain') {
+      card.innerHTML = `<img class="logo" src="${M.builder.logo_color}" alt="${M.builder.name}" />
+        <h1>${title}</h1><p class="kicker">${M.name ? M.number : ''}</p><div class="rule"></div>
+        <div class="stats">${stats}</div><p class="spec">${spec.join(' · ')}</p>
+        <div class="qr">${qrSvg}${scan}</div>${credit}`;
+    } else {
+      card.innerHTML = `<div class="top"><img class="ph" src="${full(M.exterior.twilight)}" alt="" />
+          <div class="band"><p class="kicker">${kicker}</p><h1>${title}</h1></div></div>
+        <div class="lower"><div><div class="stats">${stats}</div><p class="spec">${spec.join(' · ')}</p>${credit}</div>
+          <div class="qr">${qrSvg}${scan}</div></div>`;
+    }
+  </script>
+</body>
+</html>
