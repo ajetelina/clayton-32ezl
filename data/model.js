@@ -35,8 +35,8 @@ window.MODEL = {
    "Model year"
   ]
  ],
- "video": "video/32ezl-walkthrough.mp4",
- "poster": "video/poster.jpg",
+ "video": "video/oceanside-3-header.mp4",
+ "poster": "video/header-poster.jpg",
  "matterport": "https://my.matterport.com/show/?m=6h2BheW7vEV",
  "groups": [
   {
