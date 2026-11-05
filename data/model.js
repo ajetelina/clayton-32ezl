@@ -256,7 +256,7 @@ window.MODEL = {
  "cards": [
   [
    "Photo card",
-   "Daylight front, specs, description, QR",
+   "Daylight front, name, specs, description, QR",
    "card.html?style=photo",
    "downloads/oceanside-3-card-photo.pdf",
    "img/card-photo.jpg"
@@ -270,7 +270,7 @@ window.MODEL = {
   ],
   [
    "Plain card",
-   "Logo, name, number, specs, QR",
+   "Logo, name, number, beds, baths, square feet, QR",
    "card.html?style=plain",
    "downloads/oceanside-3-card-plain.pdf",
    "img/card-plain.jpg"

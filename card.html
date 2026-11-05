@@ -11,6 +11,8 @@
        sales office; buyers scan the QR to open the model page. Three layouts from one data file, picked by ?style=:
        photo, collage, plain. Aaron's review (10.22 PM): the customer sees these, so the builder's logo and no
        WTXmedia credit; daylight exteriors; the description on the photo cards; the QR as big as the space allows.
+       10.55 PM: the photo card's photo carries no text (the name block sits under it, as on the collage), and a Clayton Blue
+       line separates the name from what follows on every card; the plain card keeps only beds, baths and square feet.
        The build prints each to a PDF; the bar's Download button hands over that PDF. */
     @page { size: letter landscape; margin: 0; }
     :root { --ink: #14202e; --body: #445163; --mute: #6f7b8b; --line: #dde3ea; --navy: #2f4a68; --navy-ink: #0f1c2b; --steel: #9fc3ea; }
@@ -36,30 +38,31 @@
     .qr svg { display: block; margin: 0 auto; }
     .qr b { display: block; margin-top: 8px; font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 15pt; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
     .qr span { display: block; font-size: 10pt; color: var(--mute); }
+    .rule { height: 4px; background: #0071c8; }
 
-    /* photo: the daylight front with the name on it; specs, description and logo at the left, a big QR at the right */
-    .photo { display: grid; grid-template-rows: 4.2in 1fr; }
-    .photo .top { position: relative; overflow: hidden; }
-    .photo .band { position: absolute; left: 0; right: 0; bottom: 0; background: linear-gradient(0deg, rgba(15,28,43,.9), rgba(15,28,43,0)); padding: 70px .5in .28in; color: #fff; }
-    .photo .kicker { color: #dbe6f2; }
-    .photo .kicker span { background: rgba(219,230,242,.6); }
-    .photo h1 { color: #fff; font-size: 52pt; margin-top: 6px; }
-    .photo .lower { display: grid; grid-template-columns: 1fr 3.3in; gap: .35in; padding: .28in .5in .3in; align-items: center; }
-    .photo .spec { margin-top: 10px; }
-    .photo .desc { margin-top: 12px; }
-    .photo .logo { height: .42in; margin-top: 16px; }
-    .photo .qr svg { width: 2.95in; height: 2.95in; }
+    /* photo: the daylight front alone; under it the name block, a blue line, specs, description, logo; a big QR at the right */
+    .photo { display: grid; grid-template-rows: 3.9in 1fr; }
+    .photo .top { overflow: hidden; }
+    .photo .lower { display: grid; grid-template-columns: 1fr 3.2in; gap: .4in; padding: .3in .5in .3in; align-items: center; }
+    .photo .kicker { font-size: 12pt; }
+    .photo h1 { font-size: 40pt; margin-top: 4px; }
+    .photo .rule { margin: .14in 0 .16in; }
+    .photo .spec { margin-top: 8px; font-size: 11.5pt; }
+    .photo .desc { margin-top: 8px; font-size: 10.5pt; }
+    .photo .logo { height: .4in; margin-top: 14px; }
+    .photo .qr svg { width: 2.9in; height: 2.9in; }
 
     /* collage: the exterior and two rooms at the left; the logo, name, description and a big QR at the right */
     .collage { display: grid; grid-template-columns: 6.5in 1fr; }
     .collage .pics { display: grid; grid-template-rows: 5.1in 1fr; gap: .08in; }
     .collage .pics .two { display: grid; grid-template-columns: 1fr 1fr; gap: .08in; min-height: 0; }
     .collage .pics > *, .collage .pics .two > * { overflow: hidden; min-height: 0; }
-    .collage .side { padding: .4in .4in .35in; display: flex; flex-direction: column; }
+    .collage .side { padding: .55in .4in .35in; display: flex; flex-direction: column; }
     .collage .logo { height: .5in; align-self: flex-start; margin-bottom: .22in; }
     .collage .kicker { font-size: 11pt; }
     .collage h1 { font-size: 38pt; margin-top: 4px; }
-    .collage .spec { margin-top: 8px; font-size: 11pt; line-height: 1.45; }
+    .collage .rule { margin: .14in 0 .12in; }
+    .collage .spec { font-size: 11pt; line-height: 1.45; }
     .collage .desc { margin-top: 10px; font-size: 10pt; }
     .collage .qr { margin-top: auto; }
     .collage .qr svg { width: 3.05in; height: 3.05in; }
@@ -70,11 +73,10 @@
     .plain .logo { height: .62in; margin-bottom: .14in; }
     .plain h1 { font-size: 52pt; }
     .plain .kicker { margin-top: 6px; font-size: 13pt; }
-    .plain .row { display: flex; align-items: center; gap: .35in; margin-top: .18in; }
-    .plain .row .spec { margin-top: 0; }
-    .plain .stats { gap: .3in; }
+    .plain .rule { width: 1.4in; margin: .16in auto .16in; }
+    .plain .stats { justify-content: center; gap: .45in; }
     .plain .stats b { font-size: 26pt; }
-    .plain .qr { margin-top: .22in; }
+    .plain .qr { margin-top: .2in; }
     .plain .qr svg { width: 4.15in; height: 4.15in; }
 
     @media print { body { background: #fff; } .bar { display: none; } .card { margin: 0; box-shadow: none; } }
@@ -117,17 +119,18 @@
       card.innerHTML = `<div class="pics"><div><img class="ph" src="${ext}" alt="" /></div>
           <div class="two"><div><img class="ph" src="${full(a)}" alt="" /></div><div><img class="ph" src="${full(b)}" alt="" /></div></div></div>
         <div class="side">${logo}<p class="kicker">${M.number}</p><h1>${title}</h1>
+          <div class="rule"></div>
           <p class="spec">${M.stats.slice(0, 3).map(([v, k]) => `${v} ${k}`).join(' · ')}<br>${spec.join(' · ')}</p>
           <p class="desc">${M.description || ''}</p>
           <div class="qr">${qrSvg}${scan}</div></div>`;
     } else if (style === 'plain') {
       card.innerHTML = `${logo}<h1>${title}</h1><p class="kicker">${M.name ? M.number : ''}</p>
-        <div class="row"><div class="stats">${stats}</div><p class="spec">${spec.join('<br>')}</p></div>
+        <div class="rule"></div><div class="stats">${stats}</div>
         <div class="qr">${qrSvg}${scan}</div>`;
     } else {
-      card.innerHTML = `<div class="top"><img class="ph" src="${ext}" alt="" />
-          <div class="band"><p class="kicker">${kicker}</p><h1>${title}</h1></div></div>
-        <div class="lower"><div><div class="stats">${stats}</div><p class="spec">${spec.join(' · ')}</p>
+      card.innerHTML = `<div class="top"><img class="ph" src="${ext}" alt="" /></div>
+        <div class="lower"><div><p class="kicker">${kicker}</p><h1>${title}</h1><div class="rule"></div>
+          <div class="stats">${stats}</div><p class="spec">${spec.join(' · ')}</p>
           <p class="desc">${M.description || ''}</p>${logo}</div>
           <div class="qr">${qrSvg}${scan}</div></div>`;
     }
