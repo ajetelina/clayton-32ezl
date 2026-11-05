@@ -248,8 +248,8 @@ window.MODEL = {
   ],
   [
    "Video",
-   "16:9, 30 s, 12 MB",
-   "video/oceanside-3-header.mp4"
+   "16:9 with the Clayton intro and ending, 33 s, 13 MB",
+   "video/oceanside-3-video.mp4"
   ]
  ],
  "og_image": "img/og.jpg",
