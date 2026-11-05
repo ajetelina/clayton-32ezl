@@ -242,6 +242,11 @@ window.MODEL = {
  "url": "https://ajetelina.github.io/clayton-32ezl/",
  "downloads": [
   [
+   "High-resolution images",
+   "All 34 photos, zip, 15 MB",
+   "downloads/oceanside-3-photos.zip"
+  ],
+  [
    "Video",
    "16:9, 30 s, 12 MB",
    "video/oceanside-3-header.mp4"
