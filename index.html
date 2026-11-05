@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     /* The Oceanside 3 showcase, rebuilt on the model-page template (2026-11-04, Aaron's go; drafts/model-page/mockup): the Oceanside 3 showcase with Aaron's screen-recorded notes
-       applied (Desktop recording 9.17 PM). On the WTXmedia site, so the WTXmedia nav; a dark band ABOVE the video
+       applied (Desktop recording 9.17 PM). No site bar (10.43 PM): the page is the client's card, so the dark band ABOVE the video
        says what the visitor is about to see (builder name, model name, model number); every spec in one bar under
        the video; the assets (links, embed code, photo zip, video, QR, lot cards) after the tour; no disclosure
        anywhere but the footer. Unlisted: only someone with the link, or a link on wtxmedia.com, finds it. */
@@ -30,7 +30,7 @@
       --max: 1280px; --gutter: clamp(16px, 4vw, 40px);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+    html { scroll-behavior: smooth; }
     body { font-family: "Barlow", -apple-system, Arial, sans-serif; background: #fff; color: var(--body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
     img, video { display: block; max-width: 100%; }
     h1, h2 { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; color: var(--ink); text-transform: uppercase; line-height: .98; letter-spacing: .01em; font-weight: 800; }
@@ -40,23 +40,13 @@
     .big-h { font-size: clamp(38px, 5.4vw, 68px); }
     .lede { font-size: 18px; max-width: 640px; margin-top: 16px; }
 
-    /* nav: the WTXmedia site's own bar and tabs */
-    nav { position: sticky; top: 0; z-index: 30; background: rgba(255,255,255,.97); border-bottom: 1px solid var(--line); }
-    .nav-inner { display: flex; justify-content: space-between; align-items: center; height: 70px; gap: 20px; }
-    .nav-inner img { height: 38px; width: auto; }
-    .nav-inner ul { display: flex; gap: 26px; list-style: none; align-items: center; }
-    .nav-inner a { color: var(--ink); text-decoration: none; font-family: "Barlow Condensed", sans-serif; font-weight: 600; font-size: 16px; letter-spacing: .12em; text-transform: uppercase; }
-    .nav-inner a:hover { color: var(--navy); }
-    .nav-inner .cta a { background: var(--navy); color: #fff; padding: 9px 16px; }
-    @media (max-width: 900px) { .nav-inner li:not(.cta) { display: none; } }
-
     /* the title band above the video: builder name | model number, then the model name (Aaron 11-04, 9.29 PM) */
     .band { background: var(--navy-ink); color: #fff; padding: 28px 0 26px; }
     .band .kicker { color: var(--steel); margin-bottom: 8px; }
     .band h1 { color: #fff; font-size: clamp(36px, 5vw, 70px); }
     .band .kicker span { display: inline-block; width: 1px; height: .95em; background: rgba(159,195,234,.6); margin: 0 14px; vertical-align: -.12em; }
 
-    .video { background: #000; height: min(calc(100vh - 230px), 56.25vw); min-height: 340px; overflow: hidden; }
+    .video { background: #000; height: min(calc(100vh - 244px), 56.25vw); min-height: 340px; overflow: hidden; }
     .video video { width: 100%; height: 100%; object-fit: cover; }
     @media (max-width: 600px) { .video { height: auto; min-height: 0; } .video video { aspect-ratio: 16 / 9; height: auto; } }
 
@@ -114,8 +104,9 @@
     .frame iframe { width: 100%; height: 100%; border: 0; display: block; }
 
     /* assets, after the tour: everything a plant or dealer takes away from the page */
-    .assets { padding: clamp(48px, 6vw, 80px) 0; background: #fff; }
-    .asset-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 56px); margin-top: 26px; align-items: start; }
+    .assets { padding: clamp(40px, 5vw, 64px) 0 clamp(48px, 6vw, 80px); background: #fff; }
+    .assets .big-h::after { content: ""; display: block; width: 120px; height: 4px; background: var(--navy); margin-top: 18px; }
+    .asset-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 56px); margin-top: clamp(30px, 3.5vw, 44px); align-items: start; }
     .assets h3 { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 22px; text-transform: uppercase; color: var(--ink); margin-bottom: 10px; }
     .rows { list-style: none; }
     .rows li { display: grid; grid-template-columns: 190px minmax(0, 1fr) 124px; gap: 16px; align-items: center; border-top: 1px solid var(--line); padding: 12px 0; }
@@ -143,20 +134,6 @@
   </style>
 </head>
 <body>
-  <nav>
-    <div class="wrap nav-inner">
-      <a href="https://wtxmedia.com/"><img src="img/logo.png" alt="WTXmedia, Photography by AJ" /></a>
-      <ul>
-        <li><a href="https://wtxmedia.com/#services">Services</a></li>
-        <li><a href="https://wtxmedia.com/#work">Work</a></li>
-        <li><a href="https://wtxmedia.com/#matterport">Matterport</a></li>
-        <li><a href="https://wtxmedia.com/#video">Video</a></li>
-        <li><a href="https://wtxmedia.com/#about">About</a></li>
-        <li class="cta"><a href="https://wtxmedia.com/#contact">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
-
   <header class="band">
     <div class="wrap">
       <p class="kicker" id="builder"></p>
